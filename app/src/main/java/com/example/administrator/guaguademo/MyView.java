@@ -10,8 +10,9 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
+import android.view.View;
 
 /**
  * 作者：国富小哥
@@ -19,7 +20,7 @@ import android.view.SurfaceView;
  * Created by Administrator
  */
 
-public class MyView extends SurfaceView{
+public class MyView extends View{
     private Bitmap mBitmapBg;//被覆盖的内容图层
     private Bitmap mBitmapbp;//用来覆盖的图层
     private Canvas mCanvas;//用来覆盖的画布
@@ -28,10 +29,21 @@ public class MyView extends SurfaceView{
 
     private Paint mPaintContent;//用来做覆盖的图层的文字画笔
     private String content="刮刮抽大奖";//用来做覆盖的图层的文字内容
+
+    private int bitmapWidth;
+    private int bitmapHeight;
+
+
+    public MyView(Context context) {
+        super(context);
+        init();
+    }
+
     public MyView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
+
 
     private void init() {
         //刮开路经的画笔
@@ -49,6 +61,7 @@ public class MyView extends SurfaceView{
         mPath=new Path();
         //初始化被覆盖的内容bitmap
         mBitmapBg= BitmapFactory.decodeResource(getResources(),R.drawable.bg);
+
         //初始化用来覆盖的内容bitmap
         mBitmapbp=Bitmap.createBitmap(mBitmapBg.getWidth(),mBitmapBg.getHeight(), Bitmap.Config.ARGB_8888);
 
@@ -89,9 +102,16 @@ public class MyView extends SurfaceView{
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
         //绘制两个图层
-        canvas.drawBitmap(mBitmapBg,0,0,null);
-        canvas.drawBitmap(mBitmapbp,0,0,null);
+       canvas.drawBitmap(mBitmapBg,0,0,null);
+       canvas.drawBitmap(mBitmapbp,0,0,null);
+
+    }
+
+    private void getWindomMetrics() {
+        //得到屏幕的分辨率
+        DisplayMetrics metrics=getResources().getDisplayMetrics();
+        bitmapWidth=metrics.widthPixels;
+        bitmapHeight=metrics.heightPixels;
     }
 }
