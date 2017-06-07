@@ -3,4 +3,4 @@
 
 ###效果
 
-![image](https://github.com/FengGZ2016/GuaguaDemo/raw/master/Result/guagua.png)
+![image](https://github.com/FengGZ2016/Guagua/raw/master/Result/guagua.png)
